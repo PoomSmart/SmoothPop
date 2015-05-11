@@ -3,6 +3,7 @@
 @interface UIKBTree : NSObject
 @property NSInteger type;
 - (BOOL)_renderAsStringKey;
+- (NSString *)name;
 @end
 
 NSInteger popupState = 4;
@@ -14,7 +15,8 @@ NSInteger normalState = 2;
 {
 	BOOL stateOk = (fromState == popupState || fromState == normalState) && (toState == popupState || toState == normalState);
 	BOOL isCharacter = [self _renderAsStringKey];
-	return stateOk && isCharacter ? YES : %orig;
+	BOOL currency = [self.name rangeOfString:@"Currency-Sign"].location != NSNotFound;
+	return stateOk && (isCharacter || currency) ? YES : %orig;
 }
 
 %end
