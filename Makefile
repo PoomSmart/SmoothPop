@@ -1,12 +1,26 @@
-GO_EASY_ON_ME = 1
 DEBUG = 0
-TARGET = iphone:latest:7.0
-ARCHS = armv7 armv7s arm64
+SIMULATOR = 0
 
-include theos/makefiles/common.mk
+ifeq ($(SIMULATOR),1)
+	TARGET = simulator:clang:latest
+	ARCHS = x86_64 i386
+else
+	TARGET = iphone:clang:latest
+endif
+
+PACKAGE_VERSION = 1.1
+
+include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = SmoothPop
 SmoothPop_FILES = Tweak.xm
+SmoothPop_USE_SUBSTRATE = 1
 SmoothPop_FRAMEWORKS = UIKit
 
 include $(THEOS_MAKE_PATH)/tweak.mk
+
+all::
+ifeq ($(SIMULATOR),1)
+	@cp -v $(PWD)/.theos/$(THEOS_OBJ_DIR_NAME)/*.dylib /opt/simject
+	@cp -v $(PWD)/*.plist /opt/simject
+endif

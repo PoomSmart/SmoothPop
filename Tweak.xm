@@ -1,22 +1,5 @@
 #import "../PS.h"
 
-@interface UIKBTree : NSObject
-- (BOOL)_renderAsStringKey;
-- (BOOL)renderAsStringKey;
-- (NSString *)name;
-@property BOOL visible;
-@property NSInteger state;
-@property NSInteger interactionType;
-@end
-
-@interface UIKBKeyView : UIView
-- (UIKBTree *)key;
-@end
-
-@interface UIKBKeyplaneView : UIView
-- (UIView *)viewForKey:(UIKBTree *)key;
-@end
-
 NSInteger popupState = 4;
 NSInteger normalState = 2;
 
@@ -50,7 +33,7 @@ BOOL override;
 
 %hook UIKBKeyViewAnimator
 
-- (void)_fadeOutKeyView:(UIKBKeyView *)keyView duration:(float)duration completion:(void **)block
+- (void)_fadeOutKeyView:(UIKBKeyView *)keyView duration:(CGFloat)duration completion:(void **)block
 {
 	%orig(keyView, override ? 0.15 : duration, block);
 }
