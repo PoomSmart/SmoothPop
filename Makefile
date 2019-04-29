@@ -1,5 +1,3 @@
-DEBUG = 0
-
 ifeq ($(SIMULATOR),1)
 	TARGET = simulator:clang:latest:8.0
 	ARCHS = x86_64 i386
@@ -7,14 +5,13 @@ else
 	TARGET = iphone:clang:latest:6.0
 endif
 
-PACKAGE_VERSION = 1.1
+PACKAGE_VERSION = 1.2
 
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = SmoothPop
 SmoothPop_FILES = Tweak.xm
 SmoothPop_USE_SUBSTRATE = 1
-SmoothPop_FRAMEWORKS = UIKit
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 

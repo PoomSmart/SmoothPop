@@ -33,11 +33,11 @@ BOOL override;
 
 %hook UIKBKeyViewAnimator
 
-- (void)_fadeOutKeyView: (UIKBKeyView *)keyView duration: (CGFloat)duration completion: (void * *)block {
+- (void)_fadeOutKeyView:(UIKBKeyView *)keyView duration:(CGFloat)duration completion: (void **)block {
     %orig(keyView, override ? 0.15 : duration, block);
 }
 
-- (void)transitionOutKeyView:(UIKBKeyView *)keyView fromState:(NSInteger)fromState toState:(NSInteger)toState completion:(void * *)completion {
+- (void)transitionOutKeyView:(UIKBKeyView *)keyView fromState:(NSInteger)fromState toState:(NSInteger)toState completion:(void **)completion {
     NSInteger interactionType = keyView.key.interactionType;
     if (override)
         keyView.key.interactionType = 0x14;
@@ -53,7 +53,7 @@ BOOL override;
 
 %hook UIKBTree
 
-- (BOOL)canFadeOutFromState: (NSInteger)fromState toState: (NSInteger)toState {
+- (BOOL)canFadeOutFromState:(NSInteger)fromState toState:(NSInteger)toState {
     BOOL stateOk = (fromState == popupState || fromState == normalState) && (toState == popupState || toState == normalState);
     BOOL isCharacter = [self _renderAsStringKey];
     NSString *keyName = self.name;
@@ -68,7 +68,7 @@ BOOL override;
 
 %hook UIKBKeyplaneView
 
-- (void)setState: (NSInteger)state forKey: (UIKBTree *)key {
+- (void)setState:(NSInteger)state forKey:(UIKBTree *)key {
     BOOL isCharacter = [key renderAsStringKey];
     NSString *keyName = key.name;
     if ((isCharacter || keyNameOk(keyName)) && key.visible) {
